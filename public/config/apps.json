@@ -6,7 +6,21 @@
       "icon": "💣",
       "description": "经典的扫雷游戏，三种难度选择，计时器和地雷计数",
       "path": "/minesweeper",
-      "tags": ["游戏", "休闲"]
+      "tags": [
+        "游戏",
+        "休闲"
+      ]
+    },
+    {
+      "id": "kids-chinese-storybook",
+      "name": "儿童中文学习",
+      "icon": "📚",
+      "description": "输入生字/关键词，自动生成故事+配图+朗读，适合孩子趣味学中文",
+      "path": "/kids/",
+      "tags": [
+        "学习",
+        "儿童"
+      ]
     }
   ]
 }

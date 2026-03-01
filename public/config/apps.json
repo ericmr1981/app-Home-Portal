@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "id": "minesweeper",
+      "name": "扫雷游戏",
+      "icon": "💣",
+      "description": "经典的扫雷游戏，三种难度选择，计时器和地雷计数",
+      "path": "/minesweeper",
+      "tags": ["游戏", "休闲"]
+    }
+  ]
+}

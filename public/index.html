@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人应用门户</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>🏠 个人应用门户</h1>
+            </div>
+            <div class="header-right">
+                <div id="datetime" class="datetime">
+                    <span id="current-date">--</span>
+                    <span id="current-time">--:--</span>
+                </div>
+                <button id="logout-btn" class="btn btn-outline">退出登录</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <section class="welcome">
+                <h2>欢迎回来</h2>
+                <p>选择一个应用开始使用</p>
+            </section>
+
+            <section class="apps-grid" id="apps-container">
+                <!-- App cards will be rendered here -->
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>个人开发的小应用集合 · 简约而不简单</p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/time.js"></script>
+    <script src="js/apps.js"></script>
+    <script>
+        // Check authentication
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/login.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start time display
+            TimeDisplay.init();
+
+            // Load and render apps
+            Apps.loadApps();
+
+            // Handle logout
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                Auth.logout();
+            });
+        });
+    </script>
+</body>
+</html>

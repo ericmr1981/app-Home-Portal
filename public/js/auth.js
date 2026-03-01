@@ -53,6 +53,18 @@ const Auth = (function() {
          */
         async login(password) {
             try {
+                // NOTE: WebCrypto (crypto.subtle) requires a secure context (HTTPS)
+                // In plain HTTP deployments, crypto.subtle may be unavailable.
+                // For this lightweight portal, we fall back to a direct password compare.
+                if (!(globalThis.crypto && globalThis.crypto.subtle && globalThis.crypto.subtle.digest)) {
+                    if (password === '123456') {
+                        const token = Date.now().toString(36) + Math.random().toString(36).substr(2);
+                        setCookie(COOKIE_NAME, token, COOKIE_EXPIRY_DAYS);
+                        return true;
+                    }
+                    return false;
+                }
+
                 const passwordHash = await hashPassword(password);
                 if (passwordHash === DEFAULT_PASSWORD_HASH) {
                     // Create session token (timestamp + random)

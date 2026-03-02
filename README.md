@@ -198,3 +198,16 @@ MIT License
 ---
 
 **享受你的个人应用门户！** 🎉
+## 部署（Nginx 配置即代码）
+
+本仓库已包含线上 Nginx 配置，路径：
+- `deploy/nginx/app-home-portal.conf`
+
+在服务器上应用配置：
+```bash
+bash deploy/apply-nginx.sh
+```
+
+说明：
+- 门户静态文件建议同步到 `/var/www/app-home-portal`
+- `/kids/`、`/kids/assets/`、`/api/anthropic/`、`/api/ark/` 会反代到学习应用（127.0.0.1:8083）

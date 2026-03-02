@@ -1,0 +1,149 @@
+.math-main {
+  flex: 1;
+  padding: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.2rem;
+}
+
+.math-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 1rem 1.1rem;
+}
+
+.math-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.math-card-header h2 {
+  font-size: 1rem;
+}
+
+.math-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+}
+
+.control label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.unit {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+input[type="range"] {
+  flex: 1;
+  min-width: 180px;
+}
+
+input[type="number"] {
+  width: 110px;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.hint {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.math-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.canvas-wrap {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.steps {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.step {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.kpi {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.7rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.kpi span {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.kpi b {
+  font-size: 1.05rem;
+}
+
+.math-footer {
+  padding: 1rem 1.25rem 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .math-grid {
+    grid-template-columns: 1fr;
+  }
+  input[type="range"] {
+    min-width: 160px;
+  }
+}

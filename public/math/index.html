@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数学模型展示 · 圆的面积</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./math.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-left">
+          <h1>🧮 数学模型展示</h1>
+          <div class="subtitle">用图形演示圆面积 A = πr² 的计算过程</div>
+        </div>
+        <div class="header-right">
+          <a class="btn btn-outline" href="/">← 返回主页</a>
+        </div>
+      </header>
+
+      <main class="math-main">
+        <section class="math-card">
+          <div class="math-card-header">
+            <h2>参数</h2>
+          </div>
+
+          <div class="math-controls">
+            <div class="control">
+              <label for="radius">半径 r</label>
+              <div class="row">
+                <input id="radius" type="range" min="10" max="160" value="80" />
+                <input id="radiusNum" type="number" min="1" max="500" value="80" />
+                <span class="unit">px</span>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="slices">切分块数 n（越大越接近）</label>
+              <div class="row">
+                <input id="slices" type="range" min="6" max="60" step="2" value="16" />
+                <input id="slicesNum" type="number" min="2" max="200" step="2" value="16" />
+              </div>
+            </div>
+
+            <div class="control">
+              <label>演示进度</label>
+              <div class="row">
+                <button id="play" class="btn btn-primary">▶ 播放</button>
+                <button id="pause" class="btn btn-outline">⏸ 暂停</button>
+                <input id="t" type="range" min="0" max="1" step="0.01" value="0" />
+              </div>
+              <div class="hint">0：圆形；1：把扇形交错拼成“近似长方形”</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="math-grid">
+          <div class="math-card">
+            <div class="math-card-header"><h2>图形演示</h2></div>
+            <div class="canvas-wrap">
+              <canvas id="canvas" width="760" height="360"></canvas>
+            </div>
+            <div class="hint">左：圆形切分；右：交错拼接 → 宽≈πr，高=r</div>
+          </div>
+
+          <div class="math-card">
+            <div class="math-card-header"><h2>推导</h2></div>
+            <div class="steps">
+              <div class="step" id="s1">① 圆的面积记为 A</div>
+              <div class="step" id="s2">② 把圆切成 n 个扇形并交错拼接，形状接近“长方形”</div>
+              <div class="step" id="s3">③ 这个近似长方形：宽 ≈ πr，高 = r</div>
+              <div class="step" id="s4">④ 所以：A = (πr)·r = πr²</div>
+            </div>
+
+            <div class="result">
+              <div class="kpi"><span>π</span><b id="pi">3.1416</b></div>
+              <div class="kpi"><span>r</span><b id="rOut">80</b></div>
+              <div class="kpi"><span>A</span><b id="aOut">20106.2</b></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="math-footer">
+        <div class="hint">提示：调大 n（切分块数）后，右侧拼接会更接近长方形。</div>
+      </footer>
+    </div>
+
+    <script src="./math.js"></script>
+  </body>
+</html>

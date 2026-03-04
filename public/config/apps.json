@@ -6,21 +6,23 @@
       "icon": "💣",
       "description": "经典的扫雷游戏，三种难度选择，计时器和地雷计数",
       "path": "/minesweeper",
-      "tags": [
-        "游戏",
-        "休闲"
-      ]
+      "tags": ["游戏", "休闲"]
+    },
+    {
+      "id": "dino-adventure",
+      "name": "恐龙大冒险",
+      "icon": "🦕",
+      "description": "恐龙主题大富翁自走棋，2-4 人对战，60 步棋盘，数学语文挑战",
+      "path": "/dino-adventure/",
+      "tags": ["游戏", "儿童", "教育"]
     },
     {
       "id": "kids-chinese-storybook",
       "name": "儿童中文学习",
       "icon": "📚",
-      "description": "输入生字/关键词，自动生成故事+配图+朗读，适合孩子趣味学中文",
+      "description": "输入生字/关键词，自动生成故事 + 配图 + 朗读，适合孩子趣味学中文",
       "path": "/kids/",
-      "tags": [
-        "学习",
-        "儿童"
-      ]
+      "tags": ["学习", "儿童"]
     },
     {
       "id": "math-model-demo",
@@ -28,10 +30,7 @@
       "icon": "🧮",
       "description": "用图形演示圆面积 A=πr² 的计算过程",
       "path": "/math/",
-      "tags": [
-        "数学",
-        "演示"
-      ]
+      "tags": ["数学", "演示"]
     },
     {
       "id": "explore-universe",
@@ -39,11 +38,7 @@
       "icon": "🪐",
       "description": "太阳系动态运行图，点击行星了解宇宙奥秘",
       "path": "/space/",
-      "tags": [
-        "科普",
-        "宇宙",
-        "儿童"
-      ]
+      "tags": ["科普", "宇宙", "儿童"]
     }
   ]
 }

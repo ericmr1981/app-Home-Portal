@@ -8,9 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
@@ -22,8 +19,19 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -p ${VPS_PORT} ${VPS_USER}@${VPS_HOST} << 'ENDSSH'
+            # 确保目录存在
+            mkdir -p /var/www/app-Home-Portal
             cd /var/www/app-Home-Portal
-            git pull origin main
+            
+            # 检查是否已初始化 git 仓库
+            if [ ! -d .git ]; then
+              echo "📦 首次部署，克隆仓库..."
+              git clone https://github.com/ericmr1981/app-Home-Portal.git .
+            else
+              echo "🔄 更新现有部署..."
+              git pull origin main
+            fi
+            
             echo "✅ Deployed at: $(date)"
             echo "✅ Current commit:"
             git log -1 --oneline
@@ -37,9 +45,12 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -p ${VPS_PORT} ${VPS_USER}@${VPS_HOST} << 'ENDSSH'
-            echo "✅ Deployment verification:"
-            ls -la /var/www/app-Home-Portal/public/dino-adventure/
+            echo "✅ 部署验证:"
+            ls -la /var/www/app-Home-Portal/public/
+            echo ""
+            echo "📁 Dino Adventure 文件:"
+            ls -la /var/www/app-Home-Portal/public/dino-adventure/ 2>/dev/null || echo "⚠️ dino-adventure 目录不存在"
           ENDSSH
 
       - name: Notify completion
-        run: echo "🎉 Deployment completed successfully!"
+        run: echo "🎉 部署完成！"

@@ -28,15 +28,11 @@ Name:  VPS_PORT
 Value: 22
 ```
 
-### 4. VPS_SSH_KEY (最重要！)
-
-请从 `/Users/ericmr/Documents/GitHub/GitHub+VPS 自动部署配置指南.md` 复制 SSH 私钥内容，或运行：
-
-```bash
-cat "/Users/ericmr/Documents/GitHub/GitHub+VPS 自动部署配置指南.md" | grep -A 50 "BEGIN OPENSSH"
+### 4. VPS_PASSWORD
 ```
-
-然后粘贴到 GitHub Secret 中。
+Name:  VPS_PASSWORD
+Value: Souledge1981
+```
 
 ---
 
@@ -45,3 +41,18 @@ cat "/Users/ericmr/Documents/GitHub/GitHub+VPS 自动部署配置指南.md" | gr
 1. 推送代码到 main 分支会自动触发部署
 2. 查看部署状态：https://github.com/ericmr1981/app-Home-Portal/actions
 3. 部署成功后访问：http://112.124.18.246/dino-adventure/
+
+---
+
+## 🧪 测试部署
+
+推送任意更改到 main 分支：
+```bash
+cd /Users/ericmr/Documents/GitHub/app-Home-Portal
+echo "# Test" >> README.md
+git add README.md
+git commit -m "test: trigger deployment"
+git push
+```
+
+然后查看 Actions 标签页确认部署成功！

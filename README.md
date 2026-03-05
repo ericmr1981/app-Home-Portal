@@ -211,3 +211,4 @@ bash deploy/apply-nginx.sh
 说明：
 - 门户静态文件建议同步到 `/var/www/app-home-portal`
 - `/kids/`、`/kids/assets/`、`/api/anthropic/`、`/api/ark/` 会反代到学习应用（127.0.0.1:8083）
+# Deployment Test - Thu Mar  5 08:46:58 CST 2026

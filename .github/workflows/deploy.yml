@@ -20,6 +20,7 @@ jobs:
           VPS_USER: ${{ secrets.VPS_USERNAME }}
           VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
           VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_TEST_CMD: ${{ secrets.VPS_TEST_CMD }}
         run: |
           set -e
           echo "📦 Upload public/ → /var/www/app-home-portal"
@@ -57,6 +58,17 @@ jobs:
 
             echo "✅ Deployed at: $(date)"
           ENDSSH
+
+
+      - name: VPS outbound connectivity test
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USERNAME }}
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_TEST_CMD: ${{ secrets.VPS_TEST_CMD }}
+        run: |
+          sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -p ${VPS_PORT} ${VPS_USER}@${VPS_HOST} "bash -lc '${VPS_TEST_CMD}'"
 
       - name: Verify deployment
         env:

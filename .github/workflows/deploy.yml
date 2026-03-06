@@ -14,7 +14,28 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Deploy to VPS (Password Auth)
+      - name: Upload public/ to VPS (Password Auth)
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USERNAME }}
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          set -e
+          echo "📦 Upload public/ → /var/www/app-home-portal"
+
+          # Ensure target dir exists
+          sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -p ${VPS_PORT} ${VPS_USER}@${VPS_HOST} "mkdir -p /var/www/app-home-portal"
+
+          # Copy static assets from runner → VPS (no VPS outbound access to GitHub needed)
+          sshpass -p "${VPS_PASSWORD}" rsync -az --delete -e "ssh -o StrictHostKeyChecking=no -p ${VPS_PORT}" \
+            ./public/ ${VPS_USER}@${VPS_HOST}:/var/www/app-home-portal/
+
+          echo "📦 Upload nginx config"
+          sshpass -p "${VPS_PASSWORD}" scp -o StrictHostKeyChecking=no -P ${VPS_PORT} \
+            ./deploy/nginx/app-home-portal.conf ${VPS_USER}@${VPS_HOST}:/tmp/app-home-portal.conf
+
+      - name: Apply nginx config on VPS
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USERNAME }}
@@ -23,28 +44,10 @@ jobs:
         run: |
           sshpass -p "${VPS_PASSWORD}" ssh -o StrictHostKeyChecking=no -p ${VPS_PORT} ${VPS_USER}@${VPS_HOST} << 'ENDSSH'
             set -e
-
-            echo "📦 Update source repo on VPS: /var/www/app-Home-Portal"
-
-            if [ -d "/var/www/app-Home-Portal/.git" ]; then
-              cd /var/www/app-Home-Portal
-              git pull origin main
-            else
-              echo "⚠️ /var/www/app-Home-Portal is not a git repo; skipping git pull"
-            fi
-
-            echo "📦 Deploy Portal public/ → /var/www/app-home-portal"
-
-            # 1) Sync static assets (everything under public/)
-            mkdir -p /var/www/app-home-portal
-            rsync -a --delete /var/www/app-Home-Portal/public/ /var/www/app-home-portal/
-
-            # 2) Apply nginx config
             echo "🔧 Apply nginx config..."
-            CONF_SRC="/var/www/app-Home-Portal/deploy/nginx/app-home-portal.conf"
             CONF_DST="/etc/nginx/sites-available/app-home-portal"
             mkdir -p /etc/nginx/sites-available /etc/nginx/sites-enabled
-            cp "$CONF_SRC" "$CONF_DST"
+            cp /tmp/app-home-portal.conf "$CONF_DST"
             ln -sf "$CONF_DST" /etc/nginx/sites-enabled/app-home-portal
             rm -f /etc/nginx/sites-enabled/default || true
 
@@ -67,11 +70,11 @@ jobs:
             echo "✅ 部署验证:"
 
             echo "1) /tasks/ (无 cookie 应该 302 到 /login.html)"
-            curl -sI http://localhost/tasks/ | head -n 5
+            curl -sI http://localhost/tasks/ | head -n 8
 
             echo ""
-            echo "2) / (无 cookie 应该 200 返回 portal index.html)"
-            curl -sI http://localhost/ | head -n 5
+            echo "2) / (200 返回 portal index.html)"
+            curl -sI http://localhost/ | head -n 8
 
             echo ""
             echo "3) Nginx 配置测试:"
